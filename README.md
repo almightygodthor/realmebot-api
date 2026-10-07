@@ -1,34 +1,76 @@
-# RealmeBot API
+# RealmeBot API v2
 
-The RealmeBot API is an API that provides information about Realme devices. It allows users to search for Realme devices by codenames or model names.
+A maintained API for resolving Realme devices by codename, model number, device name, alias, or series.
 
-## Overview
+## Major fixes
 
-The RealmeBot API is built using Node.js and Express.js. It utilizes a JSON data file containing information about various Realme devices, including their series, codenames, and models.
+- Slash-delimited legacy keys are now treated as individual aliases.
+- Searches are case-insensitive and punctuation-tolerant.
+- Natural names such as "GT Neo 3" resolve correctly.
+- RMX3560 and RMX3561 resolve independently.
+- lisaa resolves independently.
+- Deterministic relevance ranking was added.
+- Structured API endpoints were added.
+- Health and API discovery endpoints were added.
+- Device-list pagination was added.
+- JSON 404 and 400 responses were added.
+- Automated tests and CI were added.
+- Node.js 18+ is now the supported runtime.
+- The repository now points to the maintained fork instead of the old upstream metadata.
 
-## Installation
+Express stays on the maintained 4.x line for this first migration to avoid an unnecessary breaking dependency change. The current lockfile remains reproducible.
 
-To install and run the RealmeBot API on your local machine, follow these steps:
+## API
 
-1. Clone the repository: `git clone https://github.com/agam778/realmebot-api.git`
-2. Navigate to the project directory: `cd realmebot-api`
-3. Install dependencies: `npm install`
-4. Start the server: `npm start`
-5. The API will be available at `http://localhost:8080`
+### Search
 
-## Usage
+GET /api/v1/search?q=<query>
 
-The RealmeBot API provides the following endpoints:
+Examples:
 
-- `GET /`: Retrieves the entire JSON data containing information about Realme devices.
-- `GET /:query`: Searches for Realme devices based on the provided query. The query can be a codename or series or model name.
+- /api/v1/search?q=lisaa
+- /api/v1/search?q=RMX3560
+- /api/v1/search?q=GT%20Neo%203
 
-The API is publically available at https://rbapi.up.railway.app/.
+Optional limit: 1-100.
 
-## Contributing
+### Resolve one device
 
-You can add more devices/codenames in the [`data.json`](./data.json) file. Please make sure to follow the existing format.
+GET /api/v1/device/<query>
+
+Returns the best matching device.
+
+### Series
+
+GET /api/v1/series/<series>
+
+### Device list
+
+GET /api/v1/devices?offset=0&limit=50
+
+### Health
+
+GET /health
+
+### Legacy compatibility
+
+GET /<query> remains available.
+
+The legacy endpoint now understands slash-separated entries correctly. The raw legacy dataset is available at /legacy.
+
+## Development
+
+    npm install
+    npm test
+    npm run check
+    npm start
+
+The server listens on PORT when provided and defaults to 8080.
 
 ## License
 
-This project is licensed under the [GNU General Public License v3.0](./LICENSE).
+GNU GPL v3.0.
+
+## Telegram bot
+
+A new independently controlled Telegram bot is included under `bot/`. It uses the API directly and supports device lookup, search, series browsing, interactive menus, and an isolated OTA adapter. The OTA endpoint is configured with `OTA_API_URL` because the original OTA implementation is not part of this repository.
