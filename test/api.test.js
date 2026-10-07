@@ -20,7 +20,7 @@ test('resolves GT Neo 3 by codename', () => withServer(async (base) => {
   assert.ok(body.codenames.includes('lisaa'))
 }))
 
-test('resolves GT Neo 3 by model number', () => withServer(async (base) => {
+test('resolves GT Neo 3 by 150W model number', () => withServer(async (base) => {\n  const response = await fetch(base + '/api/v1/search?q=RMX3563')\n  const body = await response.json()\n  assert.equal(response.status, 200)\n  assert.ok(body.results.some((device) => device.name === 'Realme GT Neo 3 5G'))\n}))\n\ntest('resolves GT Neo 3 by model number', () => withServer(async (base) => {
   const response = await fetch(base + '/api/v1/search?q=RMX3560')
   const body = await response.json()
   assert.equal(response.status, 200)
