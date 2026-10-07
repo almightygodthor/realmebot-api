@@ -70,3 +70,7 @@ The server listens on PORT when provided and defaults to 8080.
 ## License
 
 GNU GPL v3.0.
+
+## Telegram bot
+
+A new independently controlled Telegram bot is included under `bot/`. It uses the API directly and supports device lookup, search, series browsing, interactive menus, and an isolated OTA adapter. The OTA endpoint is configured with `OTA_API_URL` because the original OTA implementation is not part of this repository.
