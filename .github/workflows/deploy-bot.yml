@@ -1,0 +1,51 @@
+name: Deploy RealmeInfoBot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'bot/**'
+      - '.github/workflows/deploy-bot.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: realmeinfobot-production
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Validate bot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 20
+
+      - name: Syntax check
+        working-directory: bot
+        run: npm run check
+
+  deploy:
+    name: Deploy bot to Deta Space
+    needs: test
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Deploy RealmeInfoBot
+        uses: neobrains/space-pipe@v0.5
+        with:
+          access_token: ${{ secrets.BOT_SPACE_ACCESS_TOKEN }}
+          project_id: ${{ secrets.BOT_SPACE_PROJECT_ID }}
+          project_directory: ./bot
+          space_push: true
+          space_release: true
+          list_on_discovery: false
+          release_version: 2.0.0
