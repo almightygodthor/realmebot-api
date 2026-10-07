@@ -1,0 +1,14 @@
+{
+  "name": "realmeinfo-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Telegram bot for the RealmeBot API.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "check": "node --check index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
