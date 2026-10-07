@@ -1,9 +1,8 @@
-# Spacefile Docs: https://go.deta.dev/docs/spacefile/v0
 v: 0
 micros:
   - name: realmebot-api
     src: ./
-    engine: nodejs16
+    engine: nodejs18
     primary: true
     public_routes:
       - /*
