@@ -33,4 +33,4 @@ The OTA adapter is deliberately isolated because the original OTA implementation
     npm install
     npm start
 
-The bot uses Telegram long polling. Telegram documents long polling and webhooks as mutually exclusive update mechanisms; startup therefore clears an existing webhook before polling. citeturn0search6
+The bot uses Telegram long polling and clears an existing webhook at startup so polling can take over cleanly.
