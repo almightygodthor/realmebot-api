@@ -107,7 +107,7 @@ function code(value) {
 }
 
 function parseCommand(text) {
-  const match = String(text || '').match(/^\\/([a-z0-9_]+)(?:@[^\\s]+)?(?:\\s+([\\s\\S]*))?$/i)
+  const match = String(text || '').match(/^\/([a-z0-9_]+)(?:@[^\s]+)?(?:\s+([\s\S]*))?$/i)
   return match ? { command: match[1].toLowerCase(), query: (match[2] || '').trim() } : null
 }
 
