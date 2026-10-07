@@ -1,8 +1,8 @@
 {
   "name": "realmeinfo-bot",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "Telegram bot for the RealmeBot API.",
+  "description": "Reborn RealmeInfoBot Telegram assistant.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
